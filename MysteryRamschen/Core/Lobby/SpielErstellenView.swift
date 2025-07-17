@@ -25,13 +25,25 @@ struct SpielErstellenView: View {
     
     
     var body: some View {
-        if spielErstellt {
-            Text("ID: \(self.gameData)")
-        }else{
-            Text("Laden")
+        
+        
+        Text("id: \(gameData)")
+        
+        NavigationStack{
+            
+            
+            NavigationLink{
+                GameView()
+            }label: {
+                Text("STARTEN")
+                    .padding()
+                    .background{
+                        Rectangle()
+                            .fill(.green)
+                    }
+            }
+            
         }
-        
-        
         
     }
 }
