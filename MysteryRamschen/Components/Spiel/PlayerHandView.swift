@@ -24,7 +24,9 @@ struct PlayerHandView: View {
             }
             }
         }
-        
+        HStack{
+            Text("ajsdk")
+        }
     }
 }
 
