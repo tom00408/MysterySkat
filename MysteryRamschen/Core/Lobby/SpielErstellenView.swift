@@ -43,6 +43,10 @@ struct SpielErstellenView: View {
                     }
             }
             
+            
+            
+         
+            
         }
         
     }

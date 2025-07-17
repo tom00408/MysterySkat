@@ -12,21 +12,6 @@ struct PlayerHandView: View {
         Text(/*@START_MENU_TOKEN@*/"Hello, World!"/*@END_MENU_TOKEN@*/)
         Text("Test Moin Moin")
         
-        NavigationStack{
-            NavigationLink{
-                SpielErstellenView()
-            }label: {
-                Text("Zurück")
-                    .padding()
-                    .background{
-                        Rectangle()
-                            .fill(.red)
-            }
-            }
-        }
-        HStack{
-            Text("ajsdk")
-        }
     }
 }
 
