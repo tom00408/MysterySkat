@@ -15,7 +15,7 @@ struct PlayerHandView: View {
             ForEach(cards.indices, id: \.self) { index in
                 Button{
                     print(cards[index])
-                    //cards.remove(at: index)
+                    cards.remove(at: index)
                     
                 }label:{
                     Image(cards[index])

@@ -13,7 +13,7 @@ struct MenuView: View {
         NavigationStack{
             VStack(spacing: 30){
                 NavigationLink {
-                    SpielErstellenView()
+                    //SpielErstellenView()
                 } label: {
                     MenuRowBarView(text: "🆕Neues Spiel erstellen")
                 }
@@ -21,6 +21,11 @@ struct MenuView: View {
                     SpielBeitretenView()
                 } label: {
                     MenuRowBarView(text: "Einem Spiel beitreten➡️")
+                }
+                NavigationLink{
+                    PlayerHandView()
+                } label: {
+                    MenuRowBarView(text: "Karten testen")
                 }
                 
                 MenuRowBarView(text: "Einstellungen ⚙️")

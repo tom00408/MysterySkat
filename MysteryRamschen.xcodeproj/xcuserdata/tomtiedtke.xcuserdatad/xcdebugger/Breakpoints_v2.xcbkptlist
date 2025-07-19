@@ -18,36 +18,6 @@
             endingLineNumber = "17"
             landmarkName = "init()"
             landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "EABD2A5F-8566-4D02-A728-0856C4E0F061 - d884fe4c8094faff"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MysteryRamschen.SpielManager.__allocating_init() -&gt; MysteryRamschen.SpielManager"
-                  moduleName = "MysteryRamschen.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tomtiedtke/Tiddy/CodingPs/IOS/MysteryRamschen/MysteryRamschen/SpielManager/SpielManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "0"
-                  endingLineNumber = "0">
-               </Location>
-               <Location
-                  uuid = "EABD2A5F-8566-4D02-A728-0856C4E0F061 - be5d932cb38e77ef"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "MysteryRamschen.SpielManager.init() -&gt; MysteryRamschen.SpielManager"
-                  moduleName = "MysteryRamschen.debug.dylib"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/tomtiedtke/Tiddy/CodingPs/IOS/MysteryRamschen/MysteryRamschen/SpielManager/SpielManager.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "16"
-                  endingLineNumber = "16">
-               </Location>
-            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
