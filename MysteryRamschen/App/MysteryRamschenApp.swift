@@ -11,13 +11,20 @@ import Firebase
 @main
 struct MysteryRamschenApp: App {
     
-    init(){
+    init() {
+        // Firebase konfigurieren
+        if FirebaseApp.app() == nil {
         FirebaseApp.configure()
+        }
+        
+        // Firestore-Einstellungen
+        let settings = FirestoreSettings()
+        settings.isPersistenceEnabled = true
+        settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
+        Firestore.firestore().settings = settings
     }
     
     var body: some Scene {
-           
-        
         WindowGroup {
             ContentView()
         }

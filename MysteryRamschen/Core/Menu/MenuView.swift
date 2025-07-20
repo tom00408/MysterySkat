@@ -29,10 +29,20 @@ struct MenuView: View {
                 .padding(.horizontal)
 
                 
-                Button("Lobby beitreten") {
+               Button(action: {
                     navigateToJoin = true
+                }) {
+                    Text("Lobby beitreten")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                        .background(hostName.isEmpty ? Color.gray.opacity(0.3) : Color.blue)
+                        .foregroundColor(.white)
+                        .cornerRadius(12)
+                        .shadow(radius: 4)
+                        .contentShape(Rectangle())
                 }
                 .disabled(hostName.isEmpty)
+                .padding(.horizontal)
 
                 NavigationLink {
                     SettingView()

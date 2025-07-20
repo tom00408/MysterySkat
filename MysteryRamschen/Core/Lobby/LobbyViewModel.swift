@@ -23,7 +23,6 @@ class LobbyViewModel: ObservableObject {
 
     func createLobbyTest(completion: @escaping (Bool) -> Void = { _ in }) {
         print("Starte Lobby-Erstellung für \(hostName)")
-        // Reset alte Werte
         self.lobbyCode = ""
         self.currentLobby = nil
         self.gameStarted = false
