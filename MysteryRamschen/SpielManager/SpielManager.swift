@@ -18,15 +18,15 @@ class SpielManager: ObservableObject{
         do {
             try db.collection("spiele").document(lobbyCode).setData(from: lobby) { error in
                 if let error = error {
-                    print("❌ Fehler beim Schreiben in Firestore: \(error)")
+                    print("Fehler beim Schreiben in Firestore: \(error)")
                     completion(nil)
                 } else {
-                    print("Lobby erstellt mit Code: \(lobbyCode)")
+                    print("Lobby erfolgreich erstellt mit Code: \(lobbyCode)")
                     completion(lobbyCode)
                 }
             }
         } catch {
-            print("Codierungsfehler: \(error)")
+            print(" Codierungsfehler: \(error)")
             completion(nil)
         }
     }
@@ -86,4 +86,45 @@ class SpielManager: ObservableObject{
         }
     }
 
+    // Neue GameState-Funktionen mit verbesserter Fehlerbehandlung
+    func observeGameState(code: String, onUpdate: @escaping ([String: Any]) -> Void) {
+        print("🔍 Starte GameState-Beobachtung für Code: \(code)")
+        
+        db.collection("spiele").document(code).collection("gameState").document("current")
+            .addSnapshotListener { documentSnapshot, error in
+                if let error = error {
+                    print("Fehler beim Beobachten des GameState: \(error.localizedDescription)")
+                    return
+                }
+                
+                guard let document = documentSnapshot else {
+                    print("Kein GameState-Dokument gefunden")
+                    return
+                }
+                
+                if let data = document.data() {
+                    print("GameState-Update erhalten: \(data)")
+                    onUpdate(data)
+                } else {
+                    print("GameState-Dokument ist leer")
+                }
+            }
+    }
+    
+    func updateGameState(code: String, gameState: [String: Any], completion: @escaping (Bool) -> Void) {
+        print("Update GameState für Code: \(code)")
+        print("GameState-Daten: \(gameState)")
+        
+        let docRef = db.collection("spiele").document(code).collection("gameState").document("current")
+        
+        docRef.setData(gameState) { error in
+            if let error = error {
+                print("Fehler beim GameState-Update: \(error.localizedDescription)")
+                completion(false)
+            } else {
+                print("GameState erfolgreich aktualisiert")
+                completion(true)
+            }
+        }
+    }
 }

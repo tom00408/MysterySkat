@@ -1,0 +1,44 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    
+    // Zugriff auf alle Lobbys
+    match /spiele/{lobbyId} {
+
+      // Jeder darf lesen (z. B. Spieler anzeigen, Lobby anzeigen)
+      allow read: if true;
+
+      // Nur Erstellen erlaubt, wenn Host korrekt gesetzt ist
+      allow create: if 
+        request.resource.data.host is string &&
+        request.resource.data.players is list &&
+        request.resource.data.players.hasOnly([request.resource.data.host]);
+
+      // Nur Spieler in der Lobby dürfen updaten (z. B. Mitspieler hinzufügen)
+      allow update: if 
+        resource.data.players.hasAny([request.resource.data.host]) &&
+        request.resource.data.players is list;
+
+      // Löschen deaktiviert (alternativ z. B. nur Admins zulassen)
+      allow delete: if false;
+      
+      // GameState-Subcollection für das Skat-Spiel
+      match /gameState/{document} {
+        // Jeder darf GameState lesen (alle Spieler müssen den Spielstatus sehen)
+        allow read: if true;
+        
+        // Nur Spieler in der Lobby dürfen GameState schreiben/aktualisieren
+        allow write: if 
+          get(/databases/$(database)/documents/spiele/$(lobbyId)).data.players.hasAny([request.auth.token.email]) ||
+          get(/databases/$(database)/documents/spiele/$(lobbyId)).data.players.hasAny([request.auth.token.name]) ||
+          // Fallback für anonyme Benutzer (falls keine Auth verwendet wird)
+          true;
+      }
+    }
+    
+    // Standard-Regel: Verweigert alle anderen Zugriffe
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+} 

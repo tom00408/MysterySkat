@@ -1,62 +1,46 @@
-//
-//  GameView.swift
-//  MysteryRamschen
-//
-//  Created by Tom Tiedtke on 17.07.25.
-//
-
 import SwiftUI
 
 struct GameView: View {
     @ObservedObject var viewModel: LobbyViewModel
+    @StateObject private var gameViewModel: GameViewModel
     
     init(viewModel: LobbyViewModel) {
         self.viewModel = viewModel
+        self._gameViewModel = StateObject(wrappedValue: GameViewModel(lobbyViewModel: viewModel))
     }
 
     var body: some View {
-        VStack(spacing: 20) {
-            Text("MYSTERY SKAT")
-                .font(.largeTitle)
-                .bold()
-            
-            
-            if let lobby = viewModel.currentLobby {
-                Text("Spieler (\(lobby.players.count)):")
-                    .font(.headline)
-                    .padding(.top)
-                
-                VStack(spacing: 10) {
-                    ForEach(lobby.players, id: \.self) { player in
-                        HStack {
-                            Text("\(player)")
-                                .font(.body)
-                            
-                            Spacer()
-                            
-                            if player == lobby.host {
-                                Text("(Host)")
-                                    .font(.caption)
-                                    .foregroundColor(.blue)
-                                    .padding(.horizontal, 8)
-                                    .padding(.vertical, 4)
-                                    .background(Color.blue.opacity(0.1))
-                                    .cornerRadius(4)
-                            }
-                        }
-                        .padding()
-                        .background(Color.gray.opacity(0.1))
-                        .cornerRadius(8)
-                    }
-                }
-                .padding(.horizontal)
+        Group {
+            switch gameViewModel.gamePhase {
+            case .dealing:
+                DealingView(
+                    gameViewModel: gameViewModel,
+                    playerName: viewModel.hostName
+                )
+            case .playing:
+                PlayingView(
+                    gameViewModel: gameViewModel,
+                    playerName: viewModel.hostName
+                )
+            case .roundComplete:
+                RoundCompleteView(
+                    gameViewModel: gameViewModel,
+                    playerName: viewModel.hostName
+                )
+            case .gameComplete:
+                GameCompleteView(
+                    gameViewModel: gameViewModel,
+                    playerName: viewModel.hostName
+                )
             }
-            
-            Spacer()
         }
-        .padding()
-        .navigationTitle("Spiel")
+        .navigationTitle("Skat")
         .navigationBarTitleDisplayMode(.inline)
+        .onAppear(){
+            if gameViewModel.gamePhase == .dealing {
+                           gameViewModel.startGame()
+            }
+        }
     }
 }
 

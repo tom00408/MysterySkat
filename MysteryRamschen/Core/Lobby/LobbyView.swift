@@ -11,14 +11,14 @@ struct LobbyView: View {
                     Text("Lobby-Code: \(lobby.id)")
                         .font(.headline)
                     
-                    Text("Host: \(lobby.host)")
+                Text("Host: \(lobby.host)")
                         .font(.subheadline)
                     
                     Text("Spieler (\(lobby.players.count)):")
                         .font(.headline)
                         .padding(.top)
                     
-                    ForEach(lobby.players, id: \.self) { player in
+                ForEach(lobby.players, id: \.self) { player in
                         HStack {
                             Text("• \(player)")
                             if player == lobby.host {
@@ -27,15 +27,15 @@ struct LobbyView: View {
                                     .foregroundColor(.blue)
                             }
                         }
+                }
+
+                if viewModel.hostName == lobby.host {
+                    Button("Spiel starten") {
+                        viewModel.startGame()
                     }
-                    
-                    if viewModel.hostName == lobby.host {
-                        Button("Spiel starten") {
-                            viewModel.startGame()
-                        }
                         .buttonStyle(.borderedProminent)
                         .padding(.top)
-                    } else {
+                } else {
                         Text("Warte auf den Host...")
                             .foregroundColor(.secondary)
                             .padding(.top)
@@ -57,7 +57,7 @@ struct LobbyView: View {
                     ProgressView("Lobby wird geladen...")
                         .padding(.top)
                 }
-            } else {
+                } else {
                 VStack(spacing: 15) {
                     ProgressView("Lobby wird erstellt...")
                         .padding()

@@ -9,12 +9,12 @@ struct SpielBeitretenView: View {
     @State private var lobbyViewModel: LobbyViewModel?
 
     var body: some View {
-        VStack(spacing: 20) {
+            VStack(spacing: 20) {
             Text("Spieler: \(playerName)")
                 .font(.headline)
-            
+
             TextField("Lobby-Code eingeben", text: $lobbyCode)
-                .textFieldStyle(RoundedBorderTextFieldStyle())
+                    .textFieldStyle(RoundedBorderTextFieldStyle())
                 .textInputAutocapitalization(.characters)
                 .disabled(isLoading)
 
@@ -26,15 +26,15 @@ struct SpielBeitretenView: View {
 
             if isLoading {
                 ProgressView("Beitrete Lobby...")
-            }
+                }
 
-            if joinFailed {
+                if joinFailed {
                 Text("Beitritt fehlgeschlagen - Überprüfe den Code")
-                    .foregroundColor(.red)
+                        .foregroundColor(.red)
                     .multilineTextAlignment(.center)
-            }
+                }
 
-            Spacer()
+                Spacer()
         }
         .padding()
         .navigationTitle("Lobby beitreten")
